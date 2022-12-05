@@ -1,26 +1,79 @@
-## The Golden Rule:
+# Plan
 
-🦸 🦸‍♂️ `Stop starting and start finishing.` 🏁
+## Table
 
-If you work on more than one feature at a time, you are guaranteed to multiply your bugs and your anxiety.
+-   profiles table
+-   id
+-   user_id (fkey to users table)
+    -username (can use email)
+-   bio
+-   stars/popularity
+-   avatar_url
 
-## Making a plan
+## Pages
 
-1. **Make a drawing of your app. Simple "wireframes"**
-1. **Once you have a drawing, name the HTML elements you'll need to realize your vision**
-1. **For each HTML element ask: Why do I need this?**
-1. **Once we know _why_ we need each element, think about how to implement the "Why" as a "How"**
-1. **Find all the 'events' (user clicks, form submit, on load etc) in your app. Ask one by one, "What happens when" for each of these events. Does any state change?**
-1. **Think about how to validate each of your features according to a Definition of Done**
-1. **Consider what features _depend_ on what other features. Use this dependency logic to figure out what order to complete tasks.**
+-   profile editor/creator
+-   profile list (home page)
+-   profile detail
 
-Additional considerations:
+### HTML
 
--   Ask: which of your HTML elements need to be hard coded, and which need to be dynamically generated?
--   Consider your data model.
-    -   What kinds of objects (i.e., Dogs, Friends, Todos, etc) will you need?
-    -   What are the key/value pairs?
-    -   What arrays might you need?
-    -   What needs to live in a persistence layer?
--   Is there some state we need to initialize?
--   Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be reused?)
+-   editor page:
+-   form (input with label for username)
+-   bio
+-   avatar
+-   image (preview of avatar)
+-   button
+-   p tag for error display
+-   profile list
+-   container that is hard coded
+-   profile details:
+-   hard code image and header
+    = stars detail container
+
+### Events
+
+-   editor page:
+-   page load
+-   getting profile form info from supabase and display on form (if exists)
+-   avatar image input ( 'on change') display on preview
+-   form submit
+-   utilize user input and send to supabase
+-   upsert to send to supabase
+-   error handling to display issues to users
+-   profile page:
+-   upvote/ downvote button click with increment/decrement star count in supabase
+-   page load fetch
+
+### functions
+
+-   upload image (imagePath, imageFile)
+-   upsert profile(profile)
+-   get profile (user_id and getProfileById)(id)
+    increment/ decrement stars by profile id
+
+### slices
+
+-   create/edit profile (username and bio)
+-   add in avatar upload to profile
+-   get profile from supabase (use it to fill in form)
+-   error handling and button disable
+-   profile list
+-   profile detail page and stars up/down votes
+
+[] On the profiles page load, fetch the profiles from supabase and render them to the page. Each profile should contain a link to that profile's detail page (using query params) 2
+
+[] On the profile detail page load, use the query param to fetch the correct profile and display the email or username of the profile to the user 2
+
+[] On the profile detail page load, display the popularity of the user 2
+On the profile detail page, when the user upvotes or downvotes the profile, the popularity is updated correctly and displayed to the user 4
+
+Functions
+
+[] PURE: renderPopularityEl(profile) : takes in profile and returns a DOM element with karma and buttons (with event listeners to increment and decrement karma) 1
+
+[] ASYNC: upsertProfile() : creates or updates a profile in supabase 2
+
+[] ASYNC: getProfile(id) : takes in id and returns profile with matching id, including its related messages 1
+
+[] ASYNC: incrementPopularity(id) and decrementPopularity(id) : takes in id of profile to update, fetches that profile to find current Popularity, then updates that profile appropriately
