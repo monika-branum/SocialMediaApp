@@ -61,6 +61,10 @@
 -   profile list
 -   profile detail page and stars up/down votes
 
+![](./assets/Media_Wireframe1.jpg)
+![](./assets/Media_Wireframe2.jpg)
+![](./assets/Media_Wireframe3.jpg)
+
 [] On the profiles page load, fetch the profiles from supabase and render them to the page. Each profile should contain a link to that profile's detail page (using query params) 2
 
 [] On the profile detail page load, use the query param to fetch the correct profile and display the email or username of the profile to the user 2
