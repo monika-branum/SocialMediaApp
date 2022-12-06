@@ -13,3 +13,20 @@ export function renderUserList(data) {
     div.append(img, a, p);
     return div;
 }
+
+export function renderUserDetails(data) {
+    // create
+    const div = document.createElement('div');
+    const img = document.createElement('img');
+    const h = document.createElement('h2');
+    const bioP = document.createElement('p');
+    const scoreP = document.createElement('p');
+    // populate
+    img.src = data.avatar_url;
+    h.textContent = data.username;
+    bioP.textContent = data.bio;
+    scoreP.textContent = '⭐: ' + data.score;
+    // consolidate
+    div.append(img, h, bioP, scoreP);
+    return div;
+}

@@ -62,3 +62,8 @@ export async function uploadImage(imagePath, imageFile) {
 
     return url;
 }
+
+export async function getUserDetails(id) {
+    const response = await client.from('profiles').select().match({ id: id }).single();
+    return checkError(response);
+}
