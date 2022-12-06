@@ -1,15 +1,64 @@
-import { getUserDetails } from '../fetch-utils.js';
+import { decrementScore, getProfileById, getUser, getUserDetails, incrementScore } from '../fetch-utils.js';
 import { renderUserDetails } from '../render-utils.js';
 
 const detailContainer = document.getElementById('detail-container');
+const imgEl = document.getElementById('avatar-img');
+const usernameHeaderEl = document.querySelector('.username');
+
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+
 
 self.addEventListener('load', async () => {
-    // get the id from URL
-    const filter = new URLSearchParams(window.location.search);
-    const id = filter.get('id');
-    // get data
-    const user = await getUserDetails(id);
-    // put in the dom
-    const detailsDiv = renderUserDetails(user);
-    detailContainer.append(detailsDiv);
+    //Error Handling!!
+    if (!id) {
+        //  No id found, redirect back to room list
+        location.assign('/');
+        // don't run the rest of the code in the function
+        return;
+    }
+    fetchAndDisplayProfile();
 });
+
+
+async function fetchAndDisplayProfile() {
+    detailContainer.textContent = '';
+
+    const profile = await getProfileById(id);
+    console.log('profile', profile);
+    imgEl.src = profile.avatar_url;
+    usernameHeaderEl.textContent = profile.username;
+
+    const profileScore = renderScore(profile);
+
+    detailContainer.append(profileScore);
+}
+
+function renderScore({ score, username, id }) {
+    const p = document.createElement('p');
+    const downButton = document.createElement('button');
+    const upButton = document.createElement('button');
+
+
+    const profileScore = document.createElement('div');
+
+    profileScore.classList.add('profile-score');
+    profileScore.append(p, upButton, downButton);
+
+    downButton.textContent = 'down vote';
+    upButton.textContent = 'up vote';
+    p.classList.add('profile-name');
+
+    p.textContent = `${username} has a score of ${score}`;
+
+    downButton.addEventListener('click', async () => {
+        await decrementScore(id);
+        await fetchAndDisplayProfile();
+    });
+    upButton.addEventListener('click', async () => {
+        await incrementScore(id);
+        await fetchAndDisplayProfile();
+    });
+
+    return profileScore;
+}

@@ -67,3 +67,34 @@ export async function getUserDetails(id) {
     const response = await client.from('profiles').select().match({ id: id }).single();
     return checkError(response);
 }
+
+export async function getProfileById(id) {
+    const response = await client
+        .from('profiles')
+        .select()
+        .match({ id: id })
+        .single();
+
+    return checkError(response);
+}
+
+export async function incrementScore(id) {
+    const profile = await getProfileById(id);
+
+    const response = await client
+        .from('profiles')
+        .update({ score: profile.score + 1 })
+        .match({ id });
+
+    return checkError(response);
+}
+export async function decrementScore(id) {
+    const profile = await getProfileById(id);
+
+    const response = await client
+        .from('profiles')
+        .update({ score: profile.score - 1 })
+        .match({ id });
+
+    return checkError(response);
+}
