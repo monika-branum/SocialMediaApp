@@ -1,13 +1,20 @@
-import { decrementScore, getProfileById, getUser, getUserDetails, incrementScore } from '../fetch-utils.js';
+import {
+    createMessage,
+    decrementScore,
+    getProfileById,
+    getUser,
+    getUserDetails,
+    incrementScore,
+} from '../fetch-utils.js';
 import { renderUserDetails } from '../render-utils.js';
 
 const detailContainer = document.getElementById('detail-container');
 const imgEl = document.getElementById('avatar-img');
 const usernameHeaderEl = document.querySelector('.username');
+const messageForm = document.querySelector('.message-form');
 
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
-
 
 self.addEventListener('load', async () => {
     //Error Handling!!
@@ -18,8 +25,8 @@ self.addEventListener('load', async () => {
         return;
     }
     fetchAndDisplayProfile();
+    // onMessage(id, (payload = console.log('payload')));
 });
-
 
 async function fetchAndDisplayProfile() {
     detailContainer.textContent = '';
@@ -38,7 +45,6 @@ function renderScore({ score, username, id }) {
     const p = document.createElement('p');
     const downButton = document.createElement('button');
     const upButton = document.createElement('button');
-
 
     const profileScore = document.createElement('div');
 
@@ -62,3 +68,25 @@ function renderScore({ score, username, id }) {
 
     return profileScore;
 }
+
+messageForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(messageForm);
+    const user = getUser();
+    console.log(user);
+    const senderProfile = await getUserDetails(user.id);
+    if (!senderProfile) {
+        alert('Make a profile to access messaging capabilities');
+        location.assign('/');
+    } else {
+        await createMessage({
+            text: data.get('message'),
+            sender: senderProfile.data.username,
+            recipient_id: id,
+            user_id: user.id,
+        });
+
+        messageForm.reset();
+        await fetchAndDisplayProfile();
+    }
+});

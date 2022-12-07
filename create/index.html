@@ -15,6 +15,7 @@
             defer
             src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.7/dist/umd/supabase.min.js"
         ></script>
+
         <script type="module" src="create.js"></script>
 
         <!-- fonts -->
@@ -45,8 +46,8 @@
             <form id="profile-form">
                 <label>
                     Username
-                    <input 
-                        name="username" 
+                    <input
+                        name="username"
                         minlength="3"
                         required
                         placeholder="Choose a username..."
@@ -55,18 +56,12 @@
 
                 <label>
                     Bio
-                    <textarea
-                        name="bio"
-                        placeholder="Write a bio...">
-                    </textarea>
+                    <textarea name="bio" placeholder="Write a bio..."> </textarea>
                 </label>
 
                 <label>
                     Avatar
-                        <input
-                            type="file"
-                            name="avatar-input"
-                            placeholder="upload avatar image">
+                    <input type="file" name="avatar-input" placeholder="upload avatar image" />
                 </label>
 
                 <img id="avatar-preview" alt="avatar preview" src="/assets/avatar.PNG" />
