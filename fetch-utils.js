@@ -77,9 +77,13 @@ export async function getProfileById(id) {
 
 export async function createMessage(message) {
     const response = await client.from('messages').insert(message).single();
-
     return checkError(response);
 }
+export async function getMessages() {
+    const response = await client.from('messages').select('*');
+    return checkError(response);
+}
+
 export async function incrementScore(id) {
     const profile = await getProfileById(id);
 

@@ -5,13 +5,15 @@ import {
     getUser,
     getUserDetails,
     incrementScore,
+    getMessages,
 } from '../fetch-utils.js';
-import { renderUserDetails } from '../render-utils.js';
+import { renderUserDetails, renderMessages } from '../render-utils.js';
 
 const detailContainer = document.getElementById('detail-container');
 const imgEl = document.getElementById('avatar-img');
 const usernameHeaderEl = document.querySelector('.username');
 const messageForm = document.querySelector('.message-form');
+const messagesDiv = document.getElementById('messages-div');
 
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
@@ -26,13 +28,19 @@ self.addEventListener('load', async () => {
     }
     fetchAndDisplayProfile();
     // onMessage(id, (payload = console.log('payload')));
+
+    // get the full list of messages on page load, then render the full list statically
+    const messagesRaw = await getMessages();
+    console.log(messagesRaw);
+    const messagesSection = renderMessages(messagesRaw);
+    messagesDiv.append(messagesSection);
+    // after creating that, subscribe to updates, and render them individually
 });
 
 async function fetchAndDisplayProfile() {
     detailContainer.textContent = '';
 
     const profile = await getProfileById(id);
-    console.log('profile', profile);
     imgEl.src = profile.avatar_url;
     usernameHeaderEl.textContent = profile.username;
 
@@ -73,7 +81,6 @@ messageForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(messageForm);
     const user = getUser();
-    console.log(user);
 
     if (!user) {
         alert('Make a profile to access messaging capabilities');

@@ -34,7 +34,26 @@ export function renderUserDetails(data) {
     return div;
 }
 
-export function renderMessages() {
-    const header = document.createElement('h3');
-    header.textContent = `Message feed for ${profile.username}`;
+export function renderMessage(data) {
+    // create
+    const messageDiv = document.createElement('div');
+    const fromH = document.createElement('h3');
+    const bodyP = document.createElement('p');
+    // populate
+    fromH.textContent = data.from_email || 'something has gone terribly wrong: sender not found';
+    bodyP.textContent = data.text;
+    // consolidate
+    messageDiv.append(fromH, bodyP);
+    return messageDiv;
+}
+
+// data is an array of message objects
+export function renderMessages(data) {
+    const headerH = document.createElement('h3');
+    const contentSection = document.createElement('section');
+    // header.textContent = `Message feed for ${data.user_email}`;
+    for (const item of data) {
+        contentSection.append(renderMessage(item));
+    }
+    return contentSection;
 }
