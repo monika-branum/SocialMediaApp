@@ -73,7 +73,6 @@ messageForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(messageForm);
     const user = getUser();
-
     console.log(user);
 
     if (!user) {
@@ -83,6 +82,7 @@ messageForm.addEventListener('submit', async (e) => {
         await createMessage({
             text: data.get('message-input'),
             from_email: user.email,
+
             recipient_id: id,
             user_id: user.id,
         });
