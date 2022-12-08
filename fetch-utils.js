@@ -91,7 +91,6 @@ export function onMessage(profileId, container) {
         .from(`messages:recipient_id=eq.${profileId}`)
         .on('INSERT', (payload) => {
             // like really, i'm sorry
-            console.log(payload);
             container.append(renderMessage(payload.new));
         })
         .subscribe();
