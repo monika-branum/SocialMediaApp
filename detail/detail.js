@@ -6,6 +6,7 @@ import {
     getUserDetails,
     incrementScore,
     getMessages,
+    onMessage,
 } from '../fetch-utils.js';
 import { renderUserDetails, renderMessages } from '../render-utils.js';
 
@@ -13,7 +14,7 @@ const detailContainer = document.getElementById('detail-container');
 const imgEl = document.getElementById('avatar-img');
 const usernameHeaderEl = document.querySelector('.username');
 const messageForm = document.querySelector('.message-form');
-const messagesDiv = document.getElementById('messages-div');
+const messagesSection = document.getElementById('messages-div');
 
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
@@ -27,14 +28,11 @@ self.addEventListener('load', async () => {
         return;
     }
     fetchAndDisplayProfile();
-    // onMessage(id, (payload = console.log('payload')));
 
     // get the full list of messages on page load, then render the full list statically
-    const messagesRaw = await getMessages();
-    console.log(messagesRaw);
-    const messagesSection = renderMessages(messagesRaw);
-    messagesDiv.append(messagesSection);
+    renderMessages(await getMessages(), messagesSection);
     // after creating that, subscribe to updates, and render them individually
+    onMessage(id, messagesSection);
 });
 
 async function fetchAndDisplayProfile() {

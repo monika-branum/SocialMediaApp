@@ -4,6 +4,9 @@ const SUPABASE_KEY =
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// i'm sorry
+import { renderMessage } from '/render-utils.js';
+
 /* Auth related functions */
 
 export function getUser() {
@@ -82,6 +85,16 @@ export async function createMessage(message) {
 export async function getMessages() {
     const response = await client.from('messages').select('*');
     return checkError(response);
+}
+export function onMessage(profileId, container) {
+    client
+        .from(`messages:recipient_id=eq.${profileId}`)
+        .on('INSERT', (payload) => {
+            // like really, i'm sorry
+            console.log(payload);
+            container.append(renderMessage(payload));
+        })
+        .subscribe();
 }
 
 export async function incrementScore(id) {

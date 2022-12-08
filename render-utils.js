@@ -48,12 +48,10 @@ export function renderMessage(data) {
 }
 
 // data is an array of message objects
-export function renderMessages(data) {
+export function renderMessages(data, container) {
     const headerH = document.createElement('h3');
-    const contentSection = document.createElement('section');
     // header.textContent = `Message feed for ${data.user_email}`;
     for (const item of data) {
-        contentSection.append(renderMessage(item));
+        container.append(renderMessage(item));
     }
-    return contentSection;
 }
