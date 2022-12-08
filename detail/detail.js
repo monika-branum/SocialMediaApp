@@ -73,15 +73,16 @@ messageForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(messageForm);
     const user = getUser();
+
     console.log(user);
-    const senderProfile = await getUserDetails(user.id);
-    if (!senderProfile) {
+
+    if (!user) {
         alert('Make a profile to access messaging capabilities');
         location.assign('/');
     } else {
         await createMessage({
-            text: data.get('message'),
-            sender: senderProfile.data.username,
+            text: data.get('message-input'),
+            from_email: user.email,
             recipient_id: id,
             user_id: user.id,
         });
