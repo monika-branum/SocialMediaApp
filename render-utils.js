@@ -12,7 +12,7 @@ export function renderUserList(data) {
     a.href = `./detail/?id=${data.id}`;
     p.textContent = '⭐' + data.score;
     // style
-    imgDiv.classList.add('img');
+    imgDiv.classList.add('img-div');
     a.classList.add('username-link');
     // consolidate
     div.append(imgDiv, a, p);
