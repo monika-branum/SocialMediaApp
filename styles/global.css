@@ -50,8 +50,6 @@ body {
     gap: 10px;
 }
 
-
-
 main {
     padding: 20px;
 }
@@ -78,10 +76,21 @@ main {
     width: 200px;
 }
 
-
-
 .auth-main {
     background: center/100%;
     background-image: url(/assets/jungle_enter.gif);
     background-repeat: no-repeat;
+}
+
+.userDiv {
+    object-fit: scale-down;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: aqua;
+    background-blend-mode: lighten;
+}
+
+#home-page-main {
+    background-color: black;
 }

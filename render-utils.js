@@ -4,6 +4,7 @@ export function renderUserList(data) {
     // create
     const div = document.createElement('div');
     const img = document.createElement('img');
+    img.classList.add('userDiv')
     const a = document.createElement('a');
     const p = document.createElement('p');
     // populate
