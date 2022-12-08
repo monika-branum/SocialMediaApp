@@ -33,3 +33,8 @@ export function renderUserDetails(data) {
     div.append(img, h, bioP, scoreP);
     return div;
 }
+
+export function renderMessages() {
+    const header = document.createElement('h3');
+    header.textContent = `Message feed for ${profile.username}`;
+}
