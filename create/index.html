@@ -8,7 +8,7 @@
 
         <!-- title and favicon -->
         <title>Home</title>
-        <!-- <link rel="icon" type="image/x-icon" href="/assets/alchemy-favicon.png" /> -->
+        <link rel="icon" type="image/x-icon" href="/assets/alchemy-favicon.png" />
 
         <!-- js -->
         <script
@@ -16,7 +16,7 @@
             src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.7/dist/umd/supabase.min.js"
         ></script>
 
-        <script type="module" src="app.js"></script>
+        <script type="module" src="create.js"></script>
 
         <!-- fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,19 +34,42 @@
 
     <body>
         <header class="page-header">
-            <p class="title">Create</p>
+            <img class="logo" src="/assets/html_css_js.png" alt="logo" />
+            <p class="title">Home</p>
             <nav>
+                <a href="/"> Home </a>
                 <a id="sign-out-link" href="auth">Sign Out</a>
-                <a id="create-link" href="/create">Create/Edit</a>
             </nav>
         </header>
 
-        <main class="home-page">
-            <div id="profile-container"></div>
-            <!-- <style -->
-            <!--     style="display: block; border: solid black 1px; height: 50px" -->
-            <!--     contenteditable -->
-            <!-- ></style> -->
+        <main>
+            <form id="profile-form">
+                <label>
+                    Username
+                    <input
+                        name="username"
+                        minlength="3"
+                        required
+                        placeholder="Choose a username..."
+                    />
+                </label>
+
+                <label>
+                    Bio
+                    <textarea name="bio" placeholder="Write a bio..."> </textarea>
+                </label>
+
+                <label>
+                    Avatar
+                    <input type="file" name="avatar-input" placeholder="upload avatar image" />
+                </label>
+
+                <img id="avatar-preview" alt="avatar preview" src="/assets/avatar.PNG" />
+
+                <button type="submit">Update Profile</button>
+
+                <p id="error-display"></p>
+            </form>
         </main>
     </body>
 </html>

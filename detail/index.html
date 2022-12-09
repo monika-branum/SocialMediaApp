@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap"
+            rel="stylesheet"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.35.7/dist/umd/supabase.min.js"
+        ></script>
+
+        <link rel="stylesheet" href="../styles/reset.css" />
+        <link rel="stylesheet" href="../styles/global.css" />
+        <title>Profile details</title>
+    </head>
+
+    <body>
+        <header>
+            <a href="/">Home</a>
+        </header>
+
+        <main>
+            <section class="main-section">
+                <div id="detail-container"></div>
+                <img id="avatar-img" class="avatar" src="/assets/avatar.PNG" />
+                <h2 class="username"></h2>
+                <div class="profile-detail"></div>
+            </section>
+            <section>
+                <form class="message-form">
+                    <label>Send a message: <input name="message-input" /></label
+                    ><button type="submit">Submit</button>
+                </form>
+            </section>
+            <div id="messages-div"></div>
+        </main>
+        <script type="module" src="./detail.js"></script>
+    </body>
+</html>
