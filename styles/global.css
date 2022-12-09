@@ -82,15 +82,103 @@ main {
     background-repeat: no-repeat;
 }
 
-.userDiv {
-    object-fit: scale-down;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background-color: aqua;
-    background-blend-mode: lighten;
+.img-div {
+    /* width: 220px;
+    height: 50px; */
+    border: none;
+    outline: none;
+    color: #fff;
+    /* background: #111; */
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 80%;
 }
 
-#home-page-main {
-    background-color: black;
+.img-div:before {
+    content: '';
+    background: linear-gradient(
+        45deg,
+        #000000,
+        rgb(8, 36, 8),
+        rgb(22, 59, 18),
+        rgb(29, 107, 42),
+        rgb(48, 161, 48),
+        rgb(96, 201, 55),
+        #afdd43,
+        rgb(225, 255, 56),
+        #fbff00,
+        rgb(225, 255, 56),
+        #afdd43,
+        rgb(96, 201, 55),
+        rgb(48, 161, 48),
+        rgb(29, 107, 42),
+        rgb(22, 59, 18),
+        rgb(8, 36, 8),
+        #000000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 10s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 80%;
+}
+
+.img-div:active {
+    color: #000;
+}
+
+.img-div:active:after {
+    background: transparent;
+}
+
+.img-div:hover:before {
+    opacity: 1;
+}
+
+.img-div:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background: #111; */
+    left: 0;
+    top: 0;
+    border-radius: 80%;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.img-div {
+    object-fit: scale-down;
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    border-radius: 80%;
+}
+
+.home-page {
+    background-image: URL(/assets/tarzanHomePage2.gif);
+    background-size: contain;
+    /* width: fit-content; */
+    object-fit: scale-down;
+    /* background-repeat: no-repeat; */
 }
